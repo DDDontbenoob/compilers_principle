@@ -110,6 +110,11 @@ vector<Token*> getLexRes(ifstream& in){
     }
     return tkvec;
 }
+//打印词法分析结果
+void print_lexres(const vector<Token*>& lexres){
+    for(auto tkp:lexres)
+        tkp->print();
+}
 //字符分割函数
 vector<string> string_split(const string& str, const string& splits){
     if (str.empty())return {};

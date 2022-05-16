@@ -28,7 +28,13 @@ public:
     string type_name;//类型名称
     Token()=default;
     Token(const Type& t,string  name,string type_name):type(t),name(std::move(name)),type_name(std::move(type_name)){}
+    //打印Token
+    void print(){
+        cout<<'['<<type_name<<','<<name<<']'<<endl;
+    }
 };
+//打印词法分析结果
+void print_lexres(const vector<Token*>&);
 //返回词法分析结果
 vector<Token*> getLexRes(ifstream& in);
 //返回一个token

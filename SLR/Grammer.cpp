@@ -5,6 +5,7 @@
 #include "../LEX/LEX.h"
 #include "dictree.cpp"
 #include <unordered_map>
+#include <iomanip>
 //产生式类
 class Production{
 public:
@@ -106,7 +107,33 @@ public:
   }
   //打印action表
   void print_actiontable(){
-
+      print_table(get_printable_actiontable());
+  }
+  //获取可打印的action表
+  vector<vector<string>> get_printable_actiontable(){
+      vector<vector<string>> res;
+      //列属性
+      res.push_back({"status"});
+      res[0].insert(res[0].end(),tset.cbegin(),tset.cend());
+      res[0].push_back("$");
+      //列值
+      for(int i=0;i<C.size();i++){
+          vector<string> strs{to_string(i)};
+          for(const string& x:tset){
+              strs.emplace_back(action_table[i][x]);
+          }
+          strs.emplace_back(action_table[i]["$"]);
+          res.push_back(std::move(strs));
+      }
+      return res;
+  }
+  //打印表
+  void print_table(const vector<vector<string>>& table){
+      for(const auto& i:table) {
+          for (const string &str: i)
+              cout <<setw(8) <<str;
+          cout << endl;
+      }
   }
   //构建action表
   void make_action(){

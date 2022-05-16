@@ -8,9 +8,11 @@ int main(){
       return 1;
   }
   auto tkvec=getLexRes(in_text);
+  //print_lexres(tkvec);
   Grammer G(in_gram);
-  SLR slr(G);
-  slr.make_input(tkvec);
-  slr.start();
-  slr.print();
+  G.print_actiontable();
+//  SLR slr(G);
+//  slr.make_input(tkvec);
+//  slr.start();
+//  slr.print();
 }
