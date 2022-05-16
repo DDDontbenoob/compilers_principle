@@ -8,11 +8,12 @@ int main(){
       return 1;
   }
   auto tkvec=getLexRes(in_text);
-  //print_lexres(tkvec);
+  print_lexres(tkvec);
   Grammer G(in_gram);
-  G.print_actiontable();
-//  SLR slr(G);
-//  slr.make_input(tkvec);
-//  slr.start();
-//  slr.print();
+  ofstream os("../SLR/action_table.txt",ios::out);
+  G.print_actiontable(os);
+  SLR slr(G);
+  slr.make_input(tkvec);
+  slr.start();
+  slr.print();
 }

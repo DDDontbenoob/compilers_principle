@@ -106,8 +106,8 @@ public:
       P.print();
   }
   //打印action表
-  void print_actiontable(){
-      print_table(get_printable_actiontable());
+  void print_actiontable(ofstream& os){
+      print_table(os,get_printable_actiontable());
   }
   //获取可打印的action表
   vector<vector<string>> get_printable_actiontable(){
@@ -128,11 +128,16 @@ public:
       return res;
   }
   //打印表
-  void print_table(const vector<vector<string>>& table){
+  void print_table(ofstream&os,const vector<vector<string>>& table){
+      int n=8;
       for(const auto& i:table) {
           for (const string &str: i)
-              cout <<setw(8) <<str;
-          cout << endl;
+              os <<setw(n) <<str<<" |";
+          os << endl;
+          string under_line(n+2,'-');
+          for(int j=0;j<i.size();j++)
+              os<<under_line;
+          os<<endl;
       }
   }
   //构建action表
