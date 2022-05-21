@@ -10,8 +10,11 @@ int main(){
   auto tkvec=getLexRes(in_text);
   print_lexres(tkvec);
   Grammer G(in_gram);
-  ofstream os("../SLR/action_table.txt",ios::out);
-  G.print_actiontable(os);
+  ofstream os1("../SLR/action_table.txt",ios::out);
+  ofstream os2("../SLR/first_follow.txt",ios::trunc);//追加方式打开
+  G.print_follow(os2);
+  G.print_first(os2);
+  G.print_actiontable(os1);
   SLR slr(G);
   slr.make_input(tkvec);
   slr.start();

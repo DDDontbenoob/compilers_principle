@@ -94,11 +94,31 @@ public:
       //右部字符串解析出各个文法符号需要用到字典树这个数据结构
       right=t.get_words(res[1]);
       right.emplace_back("");
-      pvec.emplace_back(left,right);
+      pvec.emplace_back(left,std::move(right));
     }
     make_collection();
     make_action();
     
+  }
+    //打印first集合
+    void print_first(ofstream& ofs){
+        for(const string& X:vset){
+            ofs<<"FIRST("<<X<<"):";
+            for(const string& x:first[X]){
+                ofs<<x<<' ';
+            }
+            ofs<<endl;
+        }
+    }
+  //打印follow集合
+  void print_follow(ofstream& ofs){
+    for(const string& X:vset){
+        ofs<<"FOLLOW("<<X<<"):";
+        for(const string& x:follow[X]){
+            ofs<<x<<' ';
+        }
+        ofs<<endl;
+    }
   }
   //打印所有产生式
   void print_allprod(){
@@ -370,12 +390,13 @@ public:
     
   }
 
+
 private:
     string start;//开始符号
     unordered_set<string> vset;//非终结符集合
     unordered_set<string> tset;//终结符集合
     vector<Production> pvec;//产生式数组
-    Collection C;//项集族
+    Collection C;//项集族，应该用哈希表的，这样构建goto表的时候可以不用再生成额外的哈希表了，节省空间
     unordered_map<string,unordered_set<string>> first;//first集
     unordered_map<string,unordered_set<string>> follow;//follow集
 public:
