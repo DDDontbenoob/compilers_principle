@@ -1,0 +1,16 @@
+L1:t0:=a3+15
+if t0>0xa goto L2
+goto L0
+L2:if x2=07 goto L3
+goto L1
+L3:L4:if y<z goto L5
+goto L1
+L5:t2:=x*y
+t1:=t2/z
+y:=t1
+goto L4
+goto L1
+L0:t4:=b*c
+t3:=t4+d
+c:=t3
+L6:

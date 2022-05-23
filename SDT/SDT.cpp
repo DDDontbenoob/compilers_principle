@@ -35,9 +35,11 @@ void SDT::actionS(const AttrS& S) {
     prod_vec.pop_back();
     const auto& p=pvec[pidx];
     if(p==Production("S",{"id","=","E",""})){
-        string val=actionE();
-        ofs<<id_stack.back()<<":="<<val<<endl;
+        string val1=id_stack.back();
         id_stack.pop_back();
+        string val2=actionE();
+        ofs<<val1<<":="<<val2<<endl;
+
     }
     else if(p==Production("S",{"if","C","then","S",""})){
         AttrC C;
