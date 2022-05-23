@@ -19,6 +19,9 @@ public:
       cout<<str;
     cout<<endl;
   }
+  bool operator==(const Production& P)const{
+      return left==P.left&&right==P.right;
+  }
 };
 //项目类
 class Item{
@@ -58,7 +61,8 @@ namespace std{
 
 //文法类
 class Grammer{
-friend class SLR;
+    friend class SLR;
+    friend class SDT;
 public:
   Grammer(ifstream& in){
     /*init*/

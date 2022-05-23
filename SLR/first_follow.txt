@@ -1,0 +1,16 @@
+FOLLOW(F):else / = * + < then do ) > ; - 
+FOLLOW(T):else / - ; ) > do then * < + = 
+FOLLOW(C):do then 
+FOLLOW(E):else - = + < then do ) > ; 
+FOLLOW(S):else ; 
+FOLLOW(L):if id while $ 
+FOLLOW(P):$ 
+FOLLOW(P'):$ 
+FIRST(F):int8 id int16 int10 ( 
+FIRST(T):( int10 int16 id int8 
+FIRST(C):( int10 int16 id int8 
+FIRST(E):int8 id int16 int10 ( 
+FIRST(S):while if id 
+FIRST(L):id if while 
+FIRST(P):while if id 
+FIRST(P'):id if while 

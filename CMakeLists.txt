@@ -6,5 +6,5 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(compilers_principle_master
         SLR/dictree.cpp
         SLR/Grammer.cpp
-        SLR/main.cpp
-        SLR/SLR.cpp LEX/LEX.cpp LEX/LEX.h)
+        main.cpp
+        SLR/SLR.cpp LEX/LEX.cpp LEX/LEX.h SDT/SDT.cpp SDT/SDT.h)

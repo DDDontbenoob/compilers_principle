@@ -2,12 +2,42 @@
   SLR文法分析器类
 */
 #include "Grammer.cpp"
+#include <algorithm>
+#include <queue>
 
 class SLR{
+friend class SDT;
 public:
   SLR(Grammer& G):G(G){
     st_stk.push_back(0);
   }
+  //根据最左规约序列，返回最左派生序列栈
+  vector<int> get_leftmostderivation(){
+      deque<int> res;
+      auto rightmostderivation=which_prod;
+      reverse(rightmostderivation.begin(),rightmostderivation.end());//最右派生序列
+      int i=0;
+      function<void()> dfs=[&](){
+          int pidx=rightmostderivation[i++];
+          const auto& right=G.pvec[pidx].right;
+          for(int index=right.size()-1;index>=0;index--){
+              if(G.vset.count(right[index])){
+                  dfs();
+              }
+          }
+          res.push_front(pidx);
+      };
+      dfs();
+      reverse(res.begin(),res.end());//逆转是因为要将res尾部当作栈顶
+      return  vector<int>(res.begin(),res.end());
+  }
+  //返回id_stack
+  vector<string> get_idstack(){
+      reverse(id_stack.begin(),id_stack.end());
+      return std::move(id_stack);//调用这个函数后，slr的id_stack就不能再使用
+  }
+
+
   //打印分析结果
   void print(){
     for(int i:which_prod)
@@ -60,15 +90,19 @@ public:
     for(const auto& tkp:tkvec){
       if(tkp->type==DEC){
         in_stk.emplace_back("int10");
+        id_stack.push_back(tkp->name);
       }
       else if(tkp->type==OCT){
         in_stk.emplace_back("int8");
+        id_stack.push_back(tkp->name);
       }
       else if(tkp->type==HEX){
         in_stk.emplace_back("int16");
+        id_stack.push_back(tkp->name);
       }
       else if(tkp->type==IDN){
         in_stk.emplace_back("id");
+        id_stack.push_back(tkp->name);
       }
       else{
         //剩下的可以直接取名字
@@ -82,7 +116,6 @@ private:
   vector<string> sgn_stk;//符号栈
   vector<string> in_stk;//输入栈，栈底是$符号
   Grammer& G;//引用一个文法
-public:
   vector<int> which_prod;//记录规约过程中使用的产生式，最左规约对应最右派生，后面要用它构建分析树结构
-
+  vector<string> id_stack;
 };

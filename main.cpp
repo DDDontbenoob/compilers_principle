@@ -1,5 +1,4 @@
-#include "SLR.cpp"
-
+#include "SDT/SDT.h"
 
 int main(){
   ifstream in_text("../SLR/text.txt",ios::in),in_gram("../SLR/grammer.txt",ios::in);
@@ -19,4 +18,7 @@ int main(){
   slr.make_input(tkvec);
   slr.start();
   slr.print();
+  ofstream ofs("../threeaddrcode.txt",ios::out);
+  SDT sdt(slr,ofs);
+  sdt.start();
 }
